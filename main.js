@@ -80,11 +80,32 @@
     applyTheme(next, false);
   }
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", onThemeToggleClick);
+  function bindThemeToggles() {
+    themeToggle = document.getElementById("themeToggle");
+    themeToggleSheet = document.getElementById("themeToggleSheet");
+
+    if (themeToggle && !themeToggle._bound) {
+      themeToggle.addEventListener("click", onThemeToggleClick);
+      themeToggle._bound = true;
+    }
+    if (themeToggleSheet && !themeToggleSheet._bound) {
+      themeToggleSheet.addEventListener("click", onThemeToggleClick);
+      themeToggleSheet._bound = true;
+    }
+    // Update labels after binding
+    var currentTheme = htmlEl.getAttribute("data-theme") || "light";
+    updateToggleLabels(currentTheme);
   }
-  if (themeToggleSheet) {
-    themeToggleSheet.addEventListener("click", onThemeToggleClick);
+
+  // Initial bind
+  bindThemeToggles();
+
+  // Re-bind if elements are added later (e.g., after navigation)
+  if ("MutationObserver" in window) {
+    var mo = new MutationObserver(function () {
+      bindThemeToggles();
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
   }
 
   // Listen for system theme changes (only if user hasn't set a preference)
