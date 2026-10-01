@@ -1921,6 +1921,7 @@ strong { font-weight: 600; color: var(--color-ink); }
   padding: var(--space-3xl) var(--page-gutter);
   text-align: center;
   overflow: hidden;
+  z-index: 10;
 }
 .brand-mark__text {
   display: inline-block;
@@ -1930,7 +1931,7 @@ strong { font-weight: 600; color: var(--color-ink); }
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--color-ink);
-  opacity: 0.04;
+  opacity: 0.08;
   mix-blend-mode: multiply;
   transform: translateY(20px);
   animation: brand-mark-rise 1.2s var(--ease-out) 0.3s forwards,
@@ -1940,16 +1941,16 @@ strong { font-weight: 600; color: var(--color-ink); }
 }
 @keyframes brand-mark-rise {
   from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 0.04; transform: translateY(0); }
+  to { opacity: 0.08; transform: translateY(0); }
 }
 @keyframes brand-mark-breathe {
   0%, 100% { 
-    opacity: 0.04; 
+    opacity: 0.08; 
     transform: translateY(0) scale(1); 
     filter: blur(0);
   }
   50% { 
-    opacity: 0.08; 
+    opacity: 0.14; 
     transform: translateY(-8px) scale(1.01); 
     filter: blur(0.5px);
   }
@@ -1958,21 +1959,19 @@ strong { font-weight: 600; color: var(--color-ink); }
 /* Dark mode adjustment */
 [data-theme="dark"] .brand-mark__text {
   color: var(--color-ink);
-  opacity: 0.06;
+  opacity: 0.1;
   mix-blend-mode: screen;
-}
-[data-theme="dark"] .brand-mark__text {
   animation: brand-mark-rise 1.2s var(--ease-out) 0.3s forwards,
              brand-mark-breathe-dark 6s var(--ease-out) 1.5s infinite;
 }
 @keyframes brand-mark-breathe-dark {
   0%, 100% { 
-    opacity: 0.06; 
+    opacity: 0.1; 
     transform: translateY(0) scale(1); 
     filter: blur(0);
   }
   50% { 
-    opacity: 0.12; 
+    opacity: 0.18; 
     transform: translateY(-8px) scale(1.01); 
     filter: blur(0.5px);
   }
@@ -1981,7 +1980,7 @@ strong { font-weight: 600; color: var(--color-ink); }
 /* Interactive hover effect */
 .brand-mark:hover .brand-mark__text {
   animation: none;
-  opacity: 0.15;
+  opacity: 0.2;
   transform: translateY(-4px) scale(1.005);
   filter: blur(0);
   transition: opacity var(--dur-mid) var(--ease-out), 
@@ -1989,7 +1988,7 @@ strong { font-weight: 600; color: var(--color-ink); }
               filter var(--dur-mid) var(--ease-out);
 }
 [data-theme="dark"] .brand-mark:hover .brand-mark__text {
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
 /* ═══ Reduced motion · everything collapses to final state ══ */
