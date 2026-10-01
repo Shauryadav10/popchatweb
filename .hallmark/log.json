@@ -1,0 +1,32 @@
+﻿[
+  {
+    "date": "2026-09-30",
+    "macrostructure": "Feature Stack",
+    "theme": "Cobalt",
+    "enrichment": "Tier-A CSS conversation card + logo + screenshot slots",
+    "nav": "N1b Cobalt flush bar (left-cluster, no cmd-K)",
+    "footer": "Ft5 Statement",
+    "brief": "POP Chat - consumer chat app, no phone number required - OCTA DEVS"
+  },
+  {
+    "date": "2026-09-30",
+    "macrostructure": "Marquee Hero",
+    "theme": "Lumen (drop: night)",
+    "enrichment": "Thread-indicator apparatus (hand-built CSS) + callouts",
+    "nav": "N9 Edge-aligned minimal",
+    "footer": "Ft2 Inline single line",
+    "brief": "Dark & private redesign; keep the three screenshot slots"
+  },
+  {
+    "date": "2026-09-30",
+    "macrostructure": "Marquee Hero (centred-brand-mark variant)",
+    "theme": "Lumen (drop: day)",
+    "enrichment": "Centred brand mark as hero object + thread-indicator apparatus in section 02",
+    "nav": "Edge bar with link row + mobile sheet (subpages require real links)",
+    "footer": "Ft4 Inline credits + legal link row",
+    "brief": "Light themed, sleek and premium app; add privacy, terms, contact and 404 pages; more animation; card layout; big centred logo",
+    "diversification": "paper band: light (vs dark) | display: classical-serif-lowercase (unchanged axis family) | accent: deep indigo (vs molten brass) | macrostructure differs from Feature Stack and from the N9/Ft2 build",
+    "physics": "Day Foundry — no perpetual motion. Apparatus reveals once, pulse travels once, blocked node acks, then rests.",
+    "verification": "Headless-Chrome CDP audit across 5 pages x 3 viewports: no horizontal overflow, no contrast failures, no dead links, no duplicate ids, no heading skips, no missing alt, no ARIA wiring errors, all three fonts resolved, 26/26 behavioural checks including reduced-motion collapse and zero infinite animations."
+  }
+]

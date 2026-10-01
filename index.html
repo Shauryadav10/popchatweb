@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>POP Chat — messaging without the number</title>
+  <meta name="description" content="POP Chat is messaging that starts with a handle, not a phone number. Pick a name. Start talking." />
+  <meta name="theme-color" content="#f7f7f9" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232D2D4A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, sans-serif' font-weight='700' font-size='18' fill='white'%3Epop%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/jpeg" href="pop no name.jpg" sizes="32x32" />
+  <link rel="apple-touch-icon" href="pop no name.jpg" />
+  <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22POP Chat%22%2C%22short_name%22%3A%22POP Chat%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22pop%20no%20name.jpg%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/jpeg%22%7D%5D%7D" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Loading screen with skeleton -->
+  <div class="loader" id="loader" aria-busy="true" aria-label="Loading">
+    <div class="loader__inner">
+      <div class="loader__mark" aria-hidden="true"></div>
+      <div class="loader__text" aria-hidden="true">
+        <span class="loader__bar"></span>
+        <span class="loader__bar"></span>
+        <span class="loader__bar"></span>
+      </div>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="index.html" aria-label="POP Chat home">
+        <img class="mark nav__mark" src="pop no name.jpg" alt="" width="32" height="32" />
+        <span class="wordmark">pop chat</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="#how">how it works</a>
+        <a class="nav__link" href="#screens">screens</a>
+        <a class="nav__link" href="privacy.html">privacy</a>
+        <a class="nav__link" href="contact.html">contact</a>
+      </nav>
+
+      <a class="btn btn--primary btn--sm" href="#get">get pop chat</a>
+
+      <button class="btn btn--quiet btn--sm theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Toggle theme">
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
+      <button class="nav__toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
+        <span class="nav__bars" aria-hidden="true"><i></i><i></i></span>
+      </button>
+
+      <span class="nav__progress" id="navProgress" aria-hidden="true"></span>
+    </div>
+  </header>
+
+  <div class="sheet" id="sheet" hidden>
+    <a class="sheet__link" href="#how">how it works</a>
+    <a class="sheet__link" href="#screens">screens</a>
+    <a class="sheet__link" href="privacy.html">privacy</a>
+    <a class="sheet__link" href="terms.html">terms</a>
+    <a class="sheet__link" href="contact.html">contact</a>
+    <a class="btn btn--primary sheet__cta" href="#get">get pop chat</a>
+
+    <button class="theme-toggle theme-toggle--sheet" id="themeToggleSheet" type="button" aria-label="Switch to dark mode" title="Toggle theme">
+      <svg class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span class="theme-toggle__label">Dark mode</span>
+    </button>
+  </div>
+
+  <main id="main">
+    <!-- Hero · centred brand mark -->
+    <section class="hero">
+      <div class="hero__inner reveal-parallax">
+        <p class="eyebrow reveal">00 · the premise</p>
+
+        <img class="mark hero__mark reveal-parallax" src="pop with name.jpg" alt="POP Chat" width="480" height="170" />
+
+        <h1 class="hero__title reveal-parallax">messaging without the&nbsp;<em>number</em>.</h1>
+
+        <p class="hero__lede reveal-parallax">
+          pop chat starts with a handle, not a phone number. pick a name and
+          start talking — the digits never enter the form.
+        </p>
+
+        <div class="hero__actions reveal-parallax">
+          <a class="btn btn--primary" href="#get">get pop chat</a>
+          <a class="btn btn--quiet" href="#how">see how it works</a>
+        </div>
+
+        <p class="hero__note reveal-parallax">one field to sign up · no number collected</p>
+      </div>
+    </section>
+
+    <!-- Meter strip -->
+    <aside class="meter" aria-label="Account surface readout">
+      <p class="meter__label">required · 1 field</p>
+      <div class="meter__bars" aria-hidden="true">
+        <span style="--h: 18%"></span><span style="--h: 44%"></span><span style="--h: 72%"></span>
+        <span style="--h: 96%"></span><span style="--h: 60%"></span><span style="--h: 86%"></span>
+        <span style="--h: 38%"></span><span style="--h: 68%"></span><span style="--h: 100%"></span>
+        <span style="--h: 56%"></span><span style="--h: 80%"></span><span style="--h: 32%"></span>
+        <span style="--h: 64%"></span><span style="--h: 92%"></span><span style="--h: 48%"></span>
+        <span style="--h: 76%"></span><span style="--h: 28%"></span><span style="--h: 58%"></span>
+        <span style="--h: 84%"></span><span style="--h: 42%"></span><span style="--h: 70%"></span>
+        <span style="--h: 24%"></span><span style="--h: 52%"></span><span style="--h: 82%"></span>
+        <span style="--h: 36%"></span><span style="--h: 66%"></span><span style="--h: 20%"></span>
+        <span style="--h: 46%"></span><span style="--h: 74%"></span><span style="--h: 34%"></span>
+        <span style="--h: 62%"></span><span style="--h: 88%"></span><span style="--h: 26%"></span>
+        <span style="--h: 54%"></span><span style="--h: 78%"></span><span style="--h: 40%"></span>
+        <span style="--h: 68%"></span><span style="--h: 30%"></span><span style="--h: 58%"></span>
+        <span style="--h: 94%"></span><span style="--h: 50%"></span><span style="--h: 72%"></span>
+        <span style="--h: 22%"></span><span style="--h: 64%"></span>
+      </div>
+      <p class="meter__label">phone number · not collected</p>
+    </aside>
+
+    <!-- 01 · identity · cards -->
+    <section class="identity reveal-slide-left" id="identity">
+      <div class="identity__inner reveal-group">
+        <div class="section__head">
+          <p class="eyebrow">01 · identity</p>
+          <h2 class="section__title reveal-lines"><span class="line">a number is not an</span> <span class="line"><em>identity</em>.</span></h2>
+          <p class="section__lede reveal-lines"><span class="line">most messengers treat your phone number as the account. pop chat treats</span> <span class="line">it as optional — because for a lot of people, handing over a number was</span> <span class="line">the exact part they wanted to skip.</span></p>
+        </div>
+
+        <div class="cards reveal-group">
+          <article class="card reveal-scale" style="--i: 0">
+            <p class="card__label">what we ask for</p>
+            <ul class="kv">
+              <li><span>handle</span><span class="kv__val">required</span></li>
+              <li><span>phone number</span><span class="kv__val kv__val--off">not required</span></li>
+              <li><span>carrier / sim</span><span class="kv__val kv__val--off">not required</span></li>
+            </ul>
+          </article>
+
+          <article class="card reveal-scale" style="--i: 1">
+            <p class="card__label">what we don&rsquo;t build</p>
+            <p class="card__body">
+              no &ldquo;people you may know&rdquo; scraped from your address book, and
+              no number-based discovery. your contacts stay on your phone, where
+              they already were.
+            </p>
+          </article>
+
+          <article class="card reveal-scale" style="--i: 2">
+            <p class="card__label">what leaving looks like</p>
+            <p class="card__body">
+              no number tied to the account means no number attached to a delete
+              request. remove the handle, take the messages with you.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · thread apparatus + stages -->
+    <section class="thread reveal-slide-left" id="how">
+      <div class="thread__inner reveal-group">
+        <div class="section__head">
+          <p class="eyebrow">02 · the thread</p>
+          <h2 class="section__title reveal-lines"><span class="line">what crosses the wire,</span> <span class="line">and what doesn&rsquo;t.</span></h2>
+          <p class="section__lede reveal-lines"><span class="line">your handle and your messages travel. your phone number stays at the</span> <span class="line">edge, and that is the whole trick.</span></p>
+        </div>
+
+        <div class="thread__layout reveal-group">
+          <figure class="apparatus reveal-scale" id="apparatus">
+            <div class="thread-frame">
+              <span class="thread-frame__spine" aria-hidden="true"></span>
+              <span class="pulse" aria-hidden="true"></span>
+              <span class="pulse--rest" aria-hidden="true"></span>
+
+              <span class="node node--a" aria-hidden="true"></span>
+              <span class="node node--b" aria-hidden="true"></span>
+              <span class="node node--c" aria-hidden="true"></span>
+              <span class="node node--blocked" aria-hidden="true"><span class="node__bar"></span></span>
+
+              <ul class="callouts" role="list">
+                <li class="callout callout--right" style="--y: 22%"><span class="callout__text">@handle &middot; sent</span><span class="callout__line" aria-hidden="true"></span></li>
+                <li class="callout callout--left" style="--y: 48%"><span class="callout__text">message &middot; carried</span><span class="callout__line" aria-hidden="true"></span></li>
+                <li class="callout callout--right" style="--y: 74%"><span class="callout__text">thread &middot; opened</span><span class="callout__line" aria-hidden="true"></span></li>
+                <li class="callout callout--left callout--hold" style="--y: 90%"><span class="callout__text">+1&hairsp;555&hellip; &middot; held</span><span class="callout__line" aria-hidden="true"></span></li>
+              </ul>
+
+              <span class="thread-frame__stencil" aria-hidden="true">pop&middot;01</span>
+            </div>
+            <figcaption class="apparatus__cap">
+              the delivery path for one message, annotated
+            </figcaption>
+          </figure>
+
+          <ol class="stage-list reveal-group" id="stageList">
+            <li class="stage" data-stage>
+              <div class="stage__rail">
+                <span class="stage__num">01</span>
+                <span class="stage__mark" aria-hidden="true"></span>
+              </div>
+              <div class="stage__body">
+                <h3 class="stage__title">get pop chat</h3>
+                <p class="stage__text">
+                  install it and open it. there is no sim prompt waiting on the
+                  first screen.
+                </p>
+              </div>
+            </li>
+            <li class="stage" data-stage>
+              <div class="stage__rail">
+                <span class="stage__num">02</span>
+                <span class="stage__mark" aria-hidden="true"></span>
+              </div>
+              <div class="stage__body">
+                <h3 class="stage__title">pick a handle</h3>
+                <p class="stage__text">
+                  choose the name people will know you by. that single field is the
+                  whole account.
+                </p>
+              </div>
+            </li>
+            <li class="stage" data-stage>
+              <div class="stage__rail">
+                <span class="stage__num">03</span>
+                <span class="stage__mark" aria-hidden="true"></span>
+              </div>
+              <div class="stage__body">
+                <h3 class="stage__title">start talking</h3>
+                <p class="stage__text">
+                  share the handle, open a thread, and the rest of the product stays
+                  out of the way.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · at a glance -->
+    <section class="glance reveal-slide-right" id="glance">
+      <div class="glance__inner reveal-group">
+        <div class="section__head">
+          <p class="eyebrow">03 · at a glance</p>
+          <h2 class="section__title reveal-lines"><span class="line">the short version.</span></h2>
+        </div>
+
+        <table class="spec reveal-scale">
+          <caption class="visually-hidden">POP Chat at a glance</caption>
+          <tbody>
+            <tr><th scope="row">phone number</th><td>not required</td></tr>
+            <tr><th scope="row">account identity</th><td>handle you choose</td></tr>
+            <tr><th scope="row">sign-up form</th><td>one field, no mobile entry</td></tr>
+            <tr><th scope="row">finding people</th><td>by handle</td></tr>
+            <tr><th scope="row">contact discovery</th><td>off, and not a setting</td></tr>
+            <tr><th scope="row">core job</th><td>text people you already know</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 04 · screenshot slots -->
+    <section class="shots reveal-slide-left" id="screens">
+      <div class="shots__inner reveal-group">
+        <div class="section__head shots__head">
+          <p class="eyebrow">04 · on screen</p>
+          <h2 class="section__title reveal-lines"><span class="line">the product, in frame.</span></h2>
+          <p class="section__lede reveal-lines"><span class="line">these three frames are placeholders — drop the real pop chat captures in</span> <span class="line">when they&rsquo;re ready.</span></p>
+        </div>
+
+        <div class="shots__grid reveal-group">
+          <figure class="shot reveal-scale" style="--i: 0">
+            <div class="shot__frame">
+              <span class="shot__hint">screenshot slot</span>
+              <span class="shot__hint-sub">home</span>
+            </div>
+            <figcaption class="shot__cap">01 — threads</figcaption>
+          </figure>
+          <figure class="shot reveal-scale" style="--i: 1">
+            <div class="shot__frame">
+              <span class="shot__hint">screenshot slot</span>
+              <span class="shot__hint-sub">chat</span>
+            </div>
+            <figcaption class="shot__cap">02 — conversation</figcaption>
+          </figure>
+          <figure class="shot reveal-scale" style="--i: 2">
+            <div class="shot__frame">
+              <span class="shot__hint">screenshot slot</span>
+              <span class="shot__hint-sub">sign-up</span>
+            </div>
+            <figcaption class="shot__cap">03 — handle sign-up</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · close -->
+    <section class="close reveal-parallax" id="get">
+      <div class="close__inner reveal-group">
+        <p class="eyebrow">05 · get it</p>
+        <img class="mark close__mark reveal-scale" src="pop with name.jpg" alt="POP Chat" width="300" height="106" />
+        <h2 class="close__title reveal-lines"><span class="line">your number stays</span> <span class="line"><em>yours</em>.</span></h2>
+        <p class="close__lede reveal-lines"><span class="line">get pop chat, pick a handle, and text people without handing over a phone</span> <span class="line">number.</span></p>
+        <div class="hero__actions reveal-scale">
+          <a class="btn btn--primary btn--lg" href="https://www.octadevs.fun" rel="noopener noreferrer">get pop chat</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <p class="foot__line">
+        <span class="foot__dev">developed by octa devs</span>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <a class="foot__link" href="https://instagram.com/octadevsofficial" rel="noopener noreferrer">@octadevsofficial</a>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <a class="foot__link" href="mailto:hello@octadevs.fun">hello@octadevs.fun</a>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <a class="foot__link" href="https://www.octadevs.fun" rel="noopener noreferrer">www.octadevs.fun</a>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <span>&copy; 2026 pop chat</span>
+      </p>
+
+      <nav class="foot__legal" aria-label="Legal">
+        <a href="privacy.html">privacy policy</a>
+        <a href="terms.html">terms of service</a>
+        <a href="contact.html">contact</a>
+        <a href="404.html">404 page</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
