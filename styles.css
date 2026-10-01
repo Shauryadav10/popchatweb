@@ -668,7 +668,7 @@ strong { font-weight: 600; color: var(--color-ink); }
 }
 @media (max-width: 61.999rem) {
   .nav__inner > .btn:not(.theme-toggle) { display: none; }
-  .theme-toggle { display: inline-grid; }
+  .theme-toggle { display: inline-grid !important; visibility: visible !important; opacity: 1 !important; }
 }
 
 /* ═══ Animated Backgrounds ════════════════════════════════════ */
