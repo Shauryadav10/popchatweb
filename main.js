@@ -129,17 +129,34 @@
   function hideLoader() {
     if (!loader) return;
     // Wait for fonts and initial paint
+    var fontTimeout = setTimeout(function () {
+      // Force hide after 3s max even if fonts fail
+      loader.classList.add("is-hidden");
+      setTimeout(function () {
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 600);
+    }, 3000);
+
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () {
+        clearTimeout(fontTimeout);
         requestAnimationFrame(function () {
           loader.classList.add("is-hidden");
-          // Remove from DOM after transition
+          setTimeout(function () {
+            if (loader.parentNode) loader.parentNode.removeChild(loader);
+          }, 600);
+        });
+      }).catch(function () {
+        clearTimeout(fontTimeout);
+        requestAnimationFrame(function () {
+          loader.classList.add("is-hidden");
           setTimeout(function () {
             if (loader.parentNode) loader.parentNode.removeChild(loader);
           }, 600);
         });
       });
     } else {
+      clearTimeout(fontTimeout);
       requestAnimationFrame(function () {
         loader.classList.add("is-hidden");
         setTimeout(function () {
