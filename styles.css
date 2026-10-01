@@ -673,7 +673,7 @@ strong { font-weight: 600; color: var(--color-ink); }
 
 /* ═══ Animated Backgrounds ════════════════════════════════════ */
 
-/* Mesh gradient background */
+/* Mesh gradient background — static paint, no per-frame gradient recalc */
 .bg-mesh {
   position: fixed;
   inset: 0;
@@ -683,65 +683,46 @@ strong { font-weight: 600; color: var(--color-ink); }
     radial-gradient(ellipse 60% 40% at 80% 90%, var(--color-emit-card) 0%, transparent 50%),
     radial-gradient(ellipse 40% 60% at 50% 50%, var(--color-emit-card-hi) 0%, transparent 60%),
     var(--bg-primary);
-  animation: mesh-shift 20s var(--ease-soft) infinite;
-}
-@keyframes mesh-shift {
-  0%, 100% {
-    background-position:
-      20% 10%, 80% 90%, 50% 50%;
-  }
-  25% {
-    background-position:
-      30% 20%, 70% 80%, 40% 60%;
-  }
-  50% {
-    background-position:
-      10% 30%, 90% 70%, 60% 40%;
-  }
-  75% {
-    background-position:
-      25% 5%, 75% 95%, 55% 55%;
-  }
 }
 
-/* Floating orbs */
+/* Floating orbs — transform-only, promoted to its own layer */
 .bg-orbs {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+  contain: strict;
 }
 .bg-orbs::before,
 .bg-orbs::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.15;
-  animation: orb-float 15s var(--ease-soft) infinite;
+  opacity: 0.12;
+  will-change: transform;
+  animation: orb-float 18s var(--ease-soft) infinite;
 }
 .bg-orbs::before {
-  width: 400px;
-  height: 400px;
-  background: var(--color-accent);
-  top: -100px;
-  left: -100px;
+  width: 46vmax;
+  height: 46vmax;
+  background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+  top: -20vmax;
+  left: -18vmax;
   animation-delay: 0s;
 }
 .bg-orbs::after {
-  width: 300px;
-  height: 300px;
-  background: var(--color-accent-2);
-  bottom: -50px;
-  right: -50px;
-  animation-delay: -7.5s;
+  width: 38vmax;
+  height: 38vmax;
+  background: radial-gradient(circle, var(--color-accent-2) 0%, transparent 70%);
+  bottom: -16vmax;
+  right: -14vmax;
+  animation-delay: -9s;
 }
 @keyframes orb-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(50px, -30px) scale(1.1); }
-  50% { transform: translate(-20px, 40px) scale(0.9); }
-  75% { transform: translate(30px, 20px) scale(1.05); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(4vmax, -3vmax, 0) scale(1.06); }
+  66%      { transform: translate3d(-2vmax, 3vmax, 0) scale(0.94); }
 }
 
 /* Animated grid lines */
@@ -753,15 +734,10 @@ strong { font-weight: 600; color: var(--color-ink); }
     linear-gradient(var(--border-subtle) 1px, transparent 1px),
     linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
   background-size: 60px 60px;
-  animation: grid-move 20s linear infinite;
   opacity: 0.3;
 }
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 60px 60px; }
-}
 
-/* Noise texture overlay */
+/* Noise texture overlay — static, no 20fps transform churn */
 .bg-noise {
   position: fixed;
   inset: 0;
@@ -769,57 +745,30 @@ strong { font-weight: 600; color: var(--color-ink); }
   opacity: 0.02;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  animation: noise-shift 0.5s steps(10) infinite;
-}
-@keyframes noise-shift {
-  0% { transform: translate(0, 0); }
-  10% { transform: translate(5px, -3px); }
-  20% { transform: translate(-2px, 5px); }
-  30% { transform: translate(3px, 2px); }
-  40% { transform: translate(-4px, -4px); }
-  50% { transform: translate(1px, 3px); }
-  60% { transform: translate(-3px, 1px); }
-  70% { transform: translate(2px, -2px); }
-  80% { transform: translate(-1px, 4px); }
-  90% { transform: translate(4px, -1px); }
-  100% { transform: translate(0, 0); }
 }
 
-/* Aurora/wave background */
+/* Aurora — gradient painted once, movement happens on a composited layer */
 .bg-aurora {
   position: fixed;
-  inset: 0;
-  z-index: -1;
+  inset: -25%;
+  z-index: -2;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse 100% 100% at 50% -20%,
+    radial-gradient(ellipse 60% 45% at 50% 25%,
       var(--color-paper-emit) 0%,
-      var(--color-emit-card) 20%,
+      transparent 65%),
+    radial-gradient(ellipse 45% 40% at 20% 60%,
+      oklch(55% 0.20 24 / 0.06) 0%,
       transparent 60%),
-    radial-gradient(ellipse 80% 80% at -10% 50%,
-      oklch(55% 0.20 24 / 0.05) 0%,
-      transparent 50%),
-    radial-gradient(ellipse 60% 60% at 110% 50%,
-      oklch(46% 0.24 268 / 0.05) 0%,
-      transparent 50%),
-    var(--bg-primary);
-  animation: aurora-shift 25s var(--ease-soft) infinite;
+    radial-gradient(ellipse 45% 40% at 82% 70%,
+      oklch(46% 0.24 268 / 0.06) 0%,
+      transparent 60%);
+  will-change: transform;
+  animation: aurora-drift 30s var(--ease-soft) infinite alternate;
 }
-@keyframes aurora-shift {
-  0%, 100% {
-    background-position:
-      50% -20%, -10% 50%, 110% 50%;
-    filter: hue-rotate(0deg);
-  }
-  33% {
-    background-position:
-      30% -10%, 0% 60%, 100% 40%;
-    filter: hue-rotate(10deg);
-  }
-  66% {
-    background-position:
-      70% -30%, -20% 40%, 120% 60%;
-    filter: hue-rotate(-10deg);
-  }
+@keyframes aurora-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(3%, 2%, 0) scale(1.08); }
 }
 
 /* ═══ Hero · centred brand mark ════════════════════════════ */
@@ -833,18 +782,20 @@ strong { font-weight: 600; color: var(--color-ink); }
     radial-gradient(56% 46% at 50% 8%, var(--color-paper-emit) 0%, transparent 68%),
     var(--color-paper);
 }
+/* Soft glow that breathes over the grid — opacity only, no filter clone */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: inherit;
-  animation: hero-bg-pulse 8s var(--ease-soft) infinite;
   pointer-events: none;
+  background: radial-gradient(56% 46% at 50% 8%, var(--color-paper-emit) 0%, transparent 68%);
+  will-change: opacity;
+  animation: hero-glow 9s var(--ease-soft) infinite alternate;
 }
-@keyframes hero-bg-pulse {
-  0%, 100% { opacity: 1; filter: brightness(1); }
-  50% { opacity: 0.8; filter: brightness(1.05) saturate(1.1); }
+@keyframes hero-glow {
+  from { opacity: 0.45; }
+  to   { opacity: 1; }
 }
 .hero__inner {
   position: relative;
@@ -2041,4 +1992,58 @@ strong { font-weight: 600; color: var(--color-ink); }
   .marquee__content { animation: none !important; }
   .bounce-in, .heartbeat, .wiggle { animation: none !important; }
   .counter-up::before { animation: none !important; opacity: 1; transform: none; }
+}
+
+/* ═══ Reveal failsafe · never leave content invisible ════════
+ * Scroll reveals start at opacity:0 and depend on JS adding .is-in.
+ * If the script is blocked, fails, or the observer never fires, the page
+ * would read as blank. .no-js is on <html> until the script boots, so this
+ * block covers the "script never ran" case with no JS required.
+ * A timed CSS animation covers the "script ran but observer stalled" case.
+ */
+.no-js .reveal,
+.no-js .reveal-group > *,
+.no-js .reveal-slide-left,
+.no-js .reveal-slide-right,
+.no-js .reveal-scale,
+.no-js .reveal-parallax,
+.no-js .reveal-lines .line,
+.no-js .reveal-blur,
+.no-js .reveal-rotate,
+.no-js .reveal-clip,
+.no-js .reveal-stack > *,
+.no-js .reveal-letters .letter,
+.no-js .reveal-words .word,
+.no-js .thread-frame,
+.no-js [data-stage] {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  clip-path: none !important;
+  rotate: 0deg !important;
+  scale: 1 !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Last-resort: if .is-in never arrives, force the final state anyway.
+ * Only opacity is animated so this cannot clobber element-level
+ * keyframe animations (e.g. .float on the hero mark). */
+.js .reveal,
+.js .reveal-group > *,
+.js .reveal-slide-left,
+.js .reveal-slide-right,
+.js .reveal-scale,
+.js .reveal-parallax,
+.js .reveal-lines .line,
+.js .reveal-blur,
+.js .reveal-rotate,
+.js .reveal-clip,
+.js .reveal-stack > *,
+.js .reveal-letters .letter,
+.js .reveal-words .word {
+  animation: reveal-failsafe-opacity 0.6s var(--ease-out) 2.5s forwards;
+}
+@keyframes reveal-failsafe-opacity {
+  to { opacity: 1; }
 }

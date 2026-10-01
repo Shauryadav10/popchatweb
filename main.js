@@ -13,6 +13,11 @@
 (function () {
   "use strict";
 
+  // Flip off the no-js guard immediately: the reveal observers below are
+  // what make content visible, and CSS has a failsafe if they stall.
+  document.documentElement.classList.remove("no-js");
+  document.documentElement.classList.add("js");
+
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   /* ─── Theme Toggle · light/dark with localStorage ────────── */
@@ -429,6 +434,22 @@
   initReveal();
   initApparatus();
   initStages();
+
+  // Failsafe: if any reveal target never received .is-in (observer blocked,
+  // element inside a clipped ancestor, etc.) it would sit at opacity 0 and
+  // read as a blank page. Reveal everything after a beat, unconditionally.
+  setTimeout(function () {
+    if (document.documentElement.scrollHeight <= window.innerHeight * 1.2) showAll();
+    revealTargets.concat(revealGroupTargets, revealSlideLeftTargets,
+      revealSlideRightTargets, revealScaleTargets, revealParallaxTargets,
+      revealLinesTargets, revealBlurTargets, revealRotateTargets,
+      revealClipTargets, revealStackTargets, revealLettersTargets)
+      .forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-in");
+      });
+    if (apparatus) apparatus.classList.add("is-in");
+  }, 3000);
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
