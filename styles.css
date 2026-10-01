@@ -2026,24 +2026,8 @@ strong { font-weight: 600; color: var(--color-ink); }
   animation: none !important;
 }
 
-/* Last-resort: if .is-in never arrives, force the final state anyway.
- * Only opacity is animated so this cannot clobber element-level
- * keyframe animations (e.g. .float on the hero mark). */
-.js .reveal,
-.js .reveal-group > *,
-.js .reveal-slide-left,
-.js .reveal-slide-right,
-.js .reveal-scale,
-.js .reveal-parallax,
-.js .reveal-lines .line,
-.js .reveal-blur,
-.js .reveal-rotate,
-.js .reveal-clip,
-.js .reveal-stack > *,
-.js .reveal-letters .letter,
-.js .reveal-words .word {
-  animation: reveal-failsafe-opacity 0.6s var(--ease-out) 2.5s forwards;
-}
-@keyframes reveal-failsafe-opacity {
-  to { opacity: 1; }
-}
+/* Note: a CSS-animation failsafe used to live here. It was removed because
+ * the `animation` shorthand overrides any existing animation on the element,
+ * so it was cancelling .float / .float-slow on the hero and close marks.
+ * The .no-js block above plus the timed reveal failsafe in main.js cover the
+ * same two failure modes without clobbering element animations. */

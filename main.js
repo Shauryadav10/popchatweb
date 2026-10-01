@@ -54,9 +54,16 @@
       themeToggle.setAttribute("aria-label", label);
     }
     if (themeToggleSheet) {
-      themeToggleSheet.setAttribute("aria-label", label);
+      if (themeToggleSheet.getAttribute("aria-label") !== label) {
+        themeToggleSheet.setAttribute("aria-label", label);
+      }
       var labelEl = themeToggleSheet.querySelector(".theme-toggle__label");
-      if (labelEl) labelEl.textContent = labelText;
+      // Guard the write: assigning textContent replaces the text node even
+      // when unchanged, which re-triggers the body MutationObserver below
+      // and spins the main thread in an endless microtask loop.
+      if (labelEl && labelEl.textContent !== labelText) {
+        labelEl.textContent = labelText;
+      }
     }
   }
 
@@ -105,12 +112,19 @@
   // Initial bind
   bindThemeToggles();
 
-  // Re-bind if elements are added later (e.g., after navigation)
+  // Re-bind if the toggles are added later. Restricted to the header/sheet
+  // subtree: observing all of <body> means every DOM change anywhere on the
+  // page re-runs bindThemeToggles, which is both wasteful and a re-entrancy
+  // hazard (its own label writes would retrigger this observer).
   if ("MutationObserver" in window) {
     var mo = new MutationObserver(function () {
       bindThemeToggles();
     });
-    mo.observe(document.body, { childList: true, subtree: true });
+    mo.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributeFilter: ["id"]
+    });
   }
 
   // Listen for system theme changes (only if user hasn't set a preference)
@@ -437,19 +451,22 @@
 
   // Failsafe: if any reveal target never received .is-in (observer blocked,
   // element inside a clipped ancestor, etc.) it would sit at opacity 0 and
-  // read as a blank page. Reveal everything after a beat, unconditionally.
+  // read as a blank page. If the observer has not yet revealed the content
+  // sitting in the initial viewport, reveal it now rather than trust it.
   setTimeout(function () {
-    if (document.documentElement.scrollHeight <= window.innerHeight * 1.2) showAll();
-    revealTargets.concat(revealGroupTargets, revealSlideLeftTargets,
-      revealSlideRightTargets, revealScaleTargets, revealParallaxTargets,
-      revealLinesTargets, revealBlurTargets, revealRotateTargets,
-      revealClipTargets, revealStackTargets, revealLettersTargets)
-      .forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-in");
-      });
+    var targets = revealTargets.concat(revealGroupTargets,
+      revealSlideLeftTargets, revealSlideRightTargets, revealScaleTargets,
+      revealParallaxTargets, revealLinesTargets, revealBlurTargets,
+      revealRotateTargets, revealClipTargets, revealStackTargets,
+      revealLettersTargets);
+    var unrevealed = targets.filter(function (el) {
+      if (el.classList.contains("is-in")) return false;
+      var r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0;
+    });
+    if (unrevealed.length) showAll();
     if (apparatus) apparatus.classList.add("is-in");
-  }, 3000);
+  }, 2500);
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
