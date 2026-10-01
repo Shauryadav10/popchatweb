@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Privacy Policy — POP Chat</title>
+  <meta name="description" content="How POP Chat handles your handle, your messages, and what it never asks for." />
+  <meta name="theme-color" content="#f7f7f9" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232D2D4A'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, sans-serif' font-weight='700' font-size='18' fill='white'%3Epop%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/jpeg" href="../pop no name.jpg" sizes="32x32" />
+  <link rel="apple-touch-icon" href="../pop no name.jpg" />
+  <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22POP Chat%22%2C%22short_name%22%3A%22POP Chat%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22pop%20no%20name.jpg%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image/jpeg%22%7D%5D%7D" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../pages.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Loading screen with skeleton -->
+  <div class="loader" id="loader" aria-busy="true" aria-label="Loading">
+    <div class="loader__inner">
+      <div class="loader__mark" aria-hidden="true"></div>
+      <div class="loader__text" aria-hidden="true">
+        <span class="loader__bar"></span>
+        <span class="loader__bar"></span>
+        <span class="loader__bar"></span>
+      </div>
+    </div>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="../index.html" aria-label="POP Chat home">
+        <img class="mark nav__mark" src="../pop no name.jpg" alt="" width="32" height="32" />
+        <span class="wordmark">pop chat</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="../index.html#how">how it works</a>
+        <a class="nav__link" href="../index.html#screens">screens</a>
+        <a class="nav__link" href="../privacy.html" aria-current="page">privacy</a>
+        <a class="nav__link" href="../contact.html">contact</a>
+      </nav>
+
+      <a class="btn btn--primary btn--sm" href="../index.html#get">get pop chat</a>
+
+      <button class="btn btn--quiet btn--sm theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Toggle theme">
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
+      <button class="nav__toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
+        <span class="nav__bars" aria-hidden="true"><i></i><i></i></span>
+      </button>
+
+      <span class="nav__progress" id="navProgress" aria-hidden="true"></span>
+    </div>
+  </header>
+
+  <div class="sheet" id="sheet" hidden>
+    <a class="sheet__link" href="../index.html#how">how it works</a>
+    <a class="sheet__link" href="../index.html#screens">screens</a>
+    <a class="sheet__link" href="../privacy.html" aria-current="page">privacy</a>
+    <a class="sheet__link" href="../terms.html">terms</a>
+    <a class="sheet__link" href="../contact.html">contact</a>
+    <a class="btn btn--primary sheet__cta" href="../index.html#get">get pop chat</a>
+
+    <button class="theme-toggle theme-toggle--sheet" id="themeToggleSheet" type="button" aria-label="Switch to dark mode" title="Toggle theme">
+      <svg class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <span class="theme-toggle__label">Dark mode</span>
+    </button>
+  </div>
+
+  <main id="main" class="page">
+    <div class="page__inner">
+      <div class="page-head">
+        <p class="eyebrow">legal &middot; privacy</p>
+        <h1 class="page-title">what we collect, and what we <em>don&rsquo;t</em>.</h1>
+        <p class="page-lede">
+          pop chat is built so that the one piece of information most apps treat as
+          your identity is the one thing it never asks for. this page explains what
+          that means in practice.
+        </p>
+        <p class="page-meta">last updated &middot; 30 september 2026</p>
+      </div>
+
+      <div class="page-body">
+        <aside class="page-toc">
+          <p class="page-toc__label">on this page</p>
+          <nav aria-label="Contents">
+            <ol>
+              <li><a href="#summary">the short version</a></li>
+              <li><a href="#account">what an account is</a></li>
+              <li><a href="#collect">what we collect</a></li>
+              <li><a href="#dont">what we do not collect</a></li>
+              <li><a href="#messages">how messages are handled</a></li>
+              <li><a href="#visibility">who can find your handle</a></li>
+              <li><a href="#retention">how long we keep things</a></li>
+              <li><a href="#your-choices">your choices</a></li>
+              <li><a href="#changes">changes and contact</a></li>
+            </ol>
+          </nav>
+        </aside>
+
+        <div class="prose">
+          <div class="note reveal">
+            <p class="note__label">before you read on</p>
+            <p>
+              this is a plain-language summary written to match how the product
+              actually behaves. it is not legal advice. where this page and the
+              behaviour of the app ever disagree, the app is the honest answer and
+              you should tell us — see <a href="contact.html">contact</a>.
+            </p>
+          </div>
+
+          <h2 id="summary">the short version</h2>
+          <p>
+            an account is a handle you choose. to create one we store the handle, a
+            password or key that protects it, and the technical details needed to
+            deliver a message to the right person. we do not ask for your phone
+            number, and we do not build a profile of your contacts.
+          </p>
+
+          <h2 id="account">what an account is</h2>
+          <p>
+            your handle is the account. it is the thing other people type to open a
+            thread with you, and it is the only identifier we ask you to invent. it
+            is also the handle you would remove if you decided to leave.
+          </p>
+          <p>
+            because there is no number attached to the account, there is also no
+            number attached to a request to delete it. we think that is a feature,
+            not a gap.
+          </p>
+
+          <h2 id="collect">what we collect</h2>
+          <dl>
+            <dt>your handle</dt>
+            <dd>
+              the name you chose, and the settings you attach to it. this is the
+              public part of your account — anyone who knows it can start a thread.
+            </dd>
+
+            <dt>your credential</dt>
+            <dd>
+              the password or key that proves you are you. we store it in a form
+              that is not the readable version you typed.
+            </dd>
+
+            <dt>the message</dt>
+            <dd>
+              the text you send, who you sent it to, and when. this is the point of
+              the product, so it is the main thing we hold.
+            </dd>
+
+            <dt>operational records</dt>
+            <dd>
+              things like delivery success or failure, and coarse crash reports,
+              kept so we can tell whether the app is working. these are not used to
+              build a profile of you.
+            </dd>
+          </dl>
+
+          <h2 id="dont">what we do not collect</h2>
+          <ul>
+            <li>your phone number — the app has no field to enter one, and no screen asks for one.</li>
+            <li>your address book or contact list — the app never reads or uploads it.</li>
+            <li>your carrier, network, or sim details.</li>
+            <li>your location.</li>
+            <li>advertising identifiers, and third-party ad tracking pixels.</li>
+          </ul>
+          <p>
+            these are product decisions, not settings. there is no toggle to turn
+            address-book upload back on, because we did not build it.
+          </p>
+
+          <h2 id="messages">how messages are handled</h2>
+          <p>
+            when you send a message, it is delivered to the person whose handle you
+            chose. the recipient sees your handle as the sender, in the same way you
+            see theirs. we do not read your messages to decide what to show you next,
+            and we do not use message content for advertising.
+          </p>
+
+          <h2 id="visibility">who can find your handle</h2>
+          <p>
+            only people you give it to. pop chat has no people-you-may-know feature
+            and no number-based lookup, so we cannot introduce you to a contact you
+            did not already have in mind. a handle is findable by the people you
+            send it to, and by the people they send it to.
+          </p>
+          <p>
+            pick a handle with that in mind. anything you would not put on a poster
+            is probably not the right handle for a public identifier.
+          </p>
+
+          <h2 id="retention">how long we keep things</h2>
+          <p>
+            we keep your account for as long as you use it. when you ask us to
+            delete your account, we remove your handle and your messages from our
+            active systems. some records may still need to be kept where the law
+            requires it — for example, a record that an abuse report was filed — and
+            we will keep those only as long as that requirement lasts.
+          </p>
+          <p>
+            if you want to know about a specific piece of data, ask us and we will
+            tell you whether we hold it.
+          </p>
+
+          <h2 id="your-choices">your choices</h2>
+          <ul>
+            <li>change or release your handle whenever you like.</li>
+            <li>delete your account, which removes your handle and your messages.</li>
+            <li>ask us what we hold about you, and ask us to correct it.</li>
+            <li>ask us to delete a specific message from our systems.</li>
+          </ul>
+          <p>
+            none of these require a phone number, a support ticket number, or an
+            account-verification call.
+          </p>
+
+          <h2 id="changes">changes and contact</h2>
+          <p>
+            if this policy changes in a way that affects you, we will update the date
+            at the top of this page. if you have a question, or you think something
+            here does not match what the app does, write to us at
+            <a href="mailto:hello@octadevs.fun">hello@octadevs.fun</a> or reach octa
+            devs on <a href="https://instagram.com/octadevsofficial" rel="noopener noreferrer">@octadevsofficial</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="page-foot">
+        <p class="page-foot__note">pop chat is developed by octa devs.</p>
+        <a class="btn btn--quiet btn--sm" href="../terms.html">read the terms</a>
+        <a class="btn btn--quiet btn--sm" href="../contact.html">contact us</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <p class="foot__line">
+        <span class="foot__dev">developed by octa devs</span>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <a class="foot__link" href="https://instagram.com/octadevsofficial" rel="noopener noreferrer">@octadevsofficial</a>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <a class="foot__link" href="mailto:hello@octadevs.fun">hello@octadevs.fun</a>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <a class="foot__link" href="https://www.octadevs.fun" rel="noopener noreferrer">www.octadevs.fun</a>
+        <span class="foot__sep" aria-hidden="true">&middot;</span>
+        <span>&copy; 2026 pop chat</span>
+      </p>
+
+      <nav class="foot__legal" aria-label="Legal">
+        <a href="../privacy.html" aria-current="page">privacy policy</a>
+        <a href="../terms.html">terms of service</a>
+        <a href="../contact.html">contact</a>
+        <a href="../404.html">404 page</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+</html>
