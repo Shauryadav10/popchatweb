@@ -226,6 +226,11 @@
   var revealScaleTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-scale"));
   var revealParallaxTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-parallax"));
   var revealLinesTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-lines"));
+  var revealBlurTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-blur"));
+  var revealRotateTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-rotate"));
+  var revealClipTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-clip"));
+  var revealStackTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-stack"));
+  var revealLettersTargets = Array.prototype.slice.call(document.querySelectorAll(".reveal-letters"));
 
   function showAll() {
     revealTargets.forEach(function (el) { el.classList.add("is-in"); });
@@ -235,6 +240,11 @@
     revealScaleTargets.forEach(function (el) { el.classList.add("is-in"); });
     revealParallaxTargets.forEach(function (el) { el.classList.add("is-in"); });
     revealLinesTargets.forEach(function (el) { el.classList.add("is-in"); });
+    revealBlurTargets.forEach(function (el) { el.classList.add("is-in"); });
+    revealRotateTargets.forEach(function (el) { el.classList.add("is-in"); });
+    revealClipTargets.forEach(function (el) { el.classList.add("is-in"); });
+    revealStackTargets.forEach(function (el) { el.classList.add("is-in"); });
+    revealLettersTargets.forEach(function (el) { el.classList.add("is-in"); });
   }
 
   function initReveal() {
@@ -315,6 +325,62 @@
       { rootMargin: "0px 0px -15% 0px", threshold: 0.1 }
     );
 
+    // Blur, rotate, clip, stack, letters
+    var ioBlur = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          ioBlur.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -15% 0px", threshold: 0.1 }
+    );
+
+    var ioRotate = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          ioRotate.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
+    );
+
+    var ioClip = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          ioClip.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -5% 0px", threshold: 0.15 }
+    );
+
+    var ioStack = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          ioStack.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -20% 0px", threshold: 0.05 }
+    );
+
+    var ioLetters = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          ioLetters.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
+    );
+
     revealTargets.forEach(function (el) { ioReveal.observe(el); });
     revealGroupTargets.forEach(function (el) { ioGroup.observe(el); });
     revealSlideLeftTargets.forEach(function (el) { ioSlide.observe(el); });
@@ -322,6 +388,11 @@
     revealScaleTargets.forEach(function (el) { ioScale.observe(el); });
     revealParallaxTargets.forEach(function (el) { ioParallax.observe(el); });
     revealLinesTargets.forEach(function (el) { ioLines.observe(el); });
+    revealBlurTargets.forEach(function (el) { ioBlur.observe(el); });
+    revealRotateTargets.forEach(function (el) { ioRotate.observe(el); });
+    revealClipTargets.forEach(function (el) { ioClip.observe(el); });
+    revealStackTargets.forEach(function (el) { ioStack.observe(el); });
+    revealLettersTargets.forEach(function (el) { ioLetters.observe(el); });
   }
 
   /* ─── Apparatus · one-shot delivery sequence ───────────── */

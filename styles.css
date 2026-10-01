@@ -667,7 +667,8 @@ strong { font-weight: 600; color: var(--color-ink); }
   .nav__inner > .btn { display: inline-flex; }
 }
 @media (max-width: 61.999rem) {
-  .nav__inner > .btn { display: none; }
+  .nav__inner > .btn:not(.theme-toggle) { display: none; }
+  .theme-toggle { display: inline-grid; }
 }
 
 /* ═══ Hero · centred brand mark ════════════════════════════ */
@@ -1368,6 +1369,187 @@ strong { font-weight: 600; color: var(--color-ink); }
   transform: none;
 }
 
+/* ═══ Additional Animation Classes ═══════════════════════════ */
+
+/* Fade in with blur */
+.reveal-blur {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-long) var(--ease-out),
+    filter var(--dur-long) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
+}
+.reveal-blur.is-in {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* Rotate and scale in */
+.reveal-rotate {
+  opacity: 0;
+  transform: rotate(-4deg) scale(0.9);
+  transition:
+    opacity var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+}
+.reveal-rotate.is-in {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* Clip-path reveal (iris effect) */
+.reveal-clip {
+  opacity: 0;
+  clip-path: inset(50% 50% 50% 50%);
+  transform: translateY(20px);
+  transition:
+    opacity var(--dur-mid) var(--ease-out),
+    clip-path var(--dur-long) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+}
+.reveal-clip.is-in {
+  opacity: 1;
+  clip-path: inset(0);
+  transform: none;
+}
+
+/* Letter-by-letter reveal */
+.reveal-letters {
+  display: inline-block;
+  overflow: hidden;
+}
+.reveal-letters .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(1.2em) rotateX(-90deg);
+  transform-origin: bottom;
+  transition:
+    opacity var(--dur-short) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+}
+.reveal-letters.is-in .letter {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float {
+  animation: float 4s var(--ease-out) infinite;
+}
+.float-slow {
+  animation: float 6s var(--ease-out) infinite;
+}
+.float-fast {
+  animation: float 3s var(--ease-out) infinite;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-glow-2); }
+  50% { box-shadow: 0 0 24px 4px var(--color-glow); }
+}
+.pulse-glow {
+  animation: pulse-glow 3s var(--ease-out) infinite;
+}
+
+/* Shimmer sweep */
+@keyframes shimmer-sweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer-sweep 2s var(--ease-out) infinite;
+}
+
+/* Slide up from bottom with stagger */
+.reveal-stack > * {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity var(--dur-long) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
+}
+.reveal-stack.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+.reveal-stack.is-in > *:nth-child(1)  { transition-delay: 0ms; }
+.reveal-stack.is-in > *:nth-child(2)  { transition-delay: 80ms; }
+.reveal-stack.is-in > *:nth-child(3)  { transition-delay: 160ms; }
+.reveal-stack.is-in > *:nth-child(4)  { transition-delay: 240ms; }
+.reveal-stack.is-in > *:nth-child(5)  { transition-delay: 320ms; }
+.reveal-stack.is-in > *:nth-child(6)  { transition-delay: 400ms; }
+
+/* Counter animation */
+.counter {
+  display: inline-block;
+}
+.counter::before {
+  counter-increment: count;
+  content: counter(count);
+}
+
+/* Magnetic hover effect */
+.magnetic {
+  transition: transform var(--dur-short) var(--ease-out);
+}
+
+/* Enhanced card hover with 3D tilt */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.card-3d:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-8px);
+}
+
+/* Nav link hover animation */
+.nav__link::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform: translateX(-50%);
+  transition: width var(--dur-mid) var(--ease-out);
+}
+.nav__link:hover::before,
+.nav__link:focus-visible::before {
+  width: 100%;
+}
+
+/* Button ripple effect */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, currentColor 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform var(--dur-mid) var(--ease-out), opacity var(--dur-short) var(--ease-out);
+  pointer-events: none;
+}
+.btn:active::after {
+  opacity: 0.15;
+  transform: scale(4);
+  transition: transform 0s, opacity 0s;
+}
+
 /* ═══ Reduced motion · everything collapses to final state ══ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1384,8 +1566,14 @@ strong { font-weight: 600; color: var(--color-ink); }
   .reveal-slide-right,
   .reveal-scale,
   .reveal-parallax,
-  .reveal-lines .line { opacity: 1; transform: none; }
-  .reveal-group > * { transition-delay: 0ms !important; }
+  .reveal-lines .line,
+  .reveal-blur,
+  .reveal-rotate,
+  .reveal-clip,
+  .reveal-stack > *,
+  .reveal-letters .letter { opacity: 1; transform: none; filter: none; clip-path: none; }
+  .reveal-group > *,
+  .reveal-stack > * { transition-delay: 0ms !important; }
   .hero__mark, .hero__title, .hero__lede, .hero__actions, .hero__note {
     opacity: 1;
     transform: none;
@@ -1401,4 +1589,6 @@ strong { font-weight: 600; color: var(--color-ink); }
   .shot:hover .shot__frame { transform: none; }
   .nav__progress { display: none; }
   .loader { display: none; }
+  .float, .float-slow, .float-fast, .pulse-glow, .shimmer { animation: none !important; }
+  .btn:active::after { transform: none; opacity: 0; }
 }
